@@ -6,12 +6,163 @@
 
 using namespace std;
 
-Game::Game( int x, int y, int z, moveTypes_t moveType )
+Game::Game( int x, int y, int z, moveTypes_t moveType, Network* network, const char* user, const char* pass )
 {
+    board = new GameBoard( x, y, z );
+    this.network = network;
     
+    switch( moveType )
+    {
+        RAND:
+            generator = new RandomMoveGenerator( board );
+            break;
+        SEQ:
+            generator = new SequentialMoveGenerator( board );
+    }
 }
 
-bool Game::run(Network* network)
+
+Game::~Game()
+{
+    // Destructor
+}
+
+
+
+bool Game::run()
 {
     printf( "The game is running...\n" );
+    
+    bool loggedIn = false;
+    
+    for(int i = 0; i < 100 && !loggedIn; i++ )
+        login();
+    
+    if( !loggedIn )
+    {
+        printf( "\n\n********** UNABLE TO LOG IN ************\n\n" );
+        exit(0);
+    }
+    
+    bool gameOver = false;
+    char* response = NULL;
+    
+    while( !gameOver )
+    {
+        response = makeMove();
+        
+        gameOver = gameIsOver();
+    }
+    
+    printf( "The game is over." );
+    
+    if( matchIsOver() )
+        return true;
+    
+    return false;
+}
+
+
+bool Game::login()
+{
+    char* message = formatLoginMessage();
+    network->sendMessage( message );
+    delete message;
+    
+    return true;
+}
+
+
+
+char* Game::makeMove()
+{
+    struct Move* move = generator->generateMove();
+    
+    char* message = formatMoveMessage( move );
+    network->sendMessage(message);
+    delete message;
+    
+    char* response;
+    
+    while( (response = network->receiveMessage()) == NULL );
+    
+    tokenizeResponse( response );
+    
+    if( strcmp(responseTokens[0], "HIT") == 0 )
+        board->setStatus(move, HIT);
+    else if( strcmp(responseTokens[0], "MISS") == 0 )
+        board->setstatus(move, MISS);
+    
+    return response;
+}
+
+
+
+bool Game::gameIsOver()
+{
+    if( strcmp(responseTokens[1], "GAME") == 0 ||
+       strcmp(responseTokens[1], "MATCH") == 0 )
+        return true;
+    
+    return false;
+}
+
+
+
+
+bool Game::matchIsOver()
+{
+    if( strcmp(responseTokens[1], "MATCH") == 0 )
+        return true;
+    
+    return false;
+}
+
+
+
+char* Game::formatMoveMessage(const struct Move* move)
+{
+    char* message = new char[256];
+    
+    char* x = new char[32];
+    char* y = new char[32];
+    char* z = new char[32];
+    
+    atoi(move.x, x, 10);
+    atoi(move.y, y, 10);
+    atoi(move.z, z, 10);
+    
+    strcpy(message, x);
+    strcat(message, ",");
+    strcat(message, y);
+    strcat(message, ",");
+    strcat(message, z);
+    strcat(message, "\r\n");
+    
+    return message;
+}
+
+
+
+char* Game::formatLoginMessage()
+{
+    char* message = new char[256];
+    
+    strcpy(message, user);
+    
+    strcat(message, "|");
+    strcat(message, pass);
+    strcat(message, "\r\n");
+    
+    return message;
+}
+
+
+
+void Game::tokenizeResponse( const char* response )
+{    
+    responseTokens[0] = strtok(response, "|\r\n");
+    
+    for(int i = 1; i < NUM_RESPONSE_TOKENS && token != NULL; i++ )
+        responseTokens[i] = strtok( NULL, "|\r\n" );
 }

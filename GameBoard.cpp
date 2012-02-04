@@ -41,16 +41,16 @@ GameBoard::~Gameboard()
 }
 
 
-status_t GameBoard::getStatus(int x,int y, int z)
+status_t GameBoard::getStatus(Move* move)
 {
-	return board[x][y][z];
+	return board[move->x][move->y][move->z];
 }
 
 
-void GameBoard::setStatus(int x, int y, int z, status_t status)
+void GameBoard::setStatus(Move* move, status_t status)
 {
-	if(board[x][y][z] == UNKNOWN )
+	if(board[move->x][move->y][move->z] == UNKNOWN )
     {
-		board[x][y][z] = status;
+		board[move->x][move->y][move->z] = status;
 	}
 }

@@ -11,6 +11,9 @@
 
 #include "Network.h"
 #include <stdio.h>
+#include <string.h>
+
+#define NUM_RESPONSE_TOKENS 3
 
 enum ships_t {FRI, SUB, DES, BAT, CAR};
 
@@ -27,39 +30,49 @@ struct Move {
 class Game
 {
 public:
-    Game( int x, int y, int z, moveTypes_t moveType );
+    Game( int x, int y, int z, moveTypes_t moveType, Network* network );
     
-    bool run(Network* network);
+    bool run();
+    
+    ~Game();
     
 private:
-    /**
-     * Generates a random, valid move.
-     *
-     * @return - The move that is generated.
-     */
-    struct Move randomMove();
+    /***************************************
+     * FUNCTIONS
+     ***************************************/
+    
+    bool login();
+    
+    char* makeMove();
+    
+    bool gameIsOver();
+    
+    bool matchIsOver();
+    
+    char* formatMoveMessage(const struct Move* move);
+    
+    char* formatLoginMessage();
+    
+    void tokenizeResponse(const char* response);
     
     
-    /**
-     * Generates a random integer between the bounds
-     *
-     * @param lowerBound - The lower bound of the possible
-     *                     numbers that can be generated
-     * @param upperBound - The upper bound of the possible
-     *                     numbers that can be generated
-     * @param includeBounds - If true, the bounds are possible
-     *                        return values.  If false, the bounds
-     *                        are not valid return values. 
-     *
-     * @return - A random integer between the lower and upper bounds.
-     */
-    int generateInteger( int lowerBound, int upperBound, bool includeBounds );
     
-    
-    int gameIterations;
-    
+    /***************************************
+     * VARIABLES
+     ***************************************/
     
     moveTypes_t moveType;
+    
+    MoveGenerator generator;
+    
+    Network* network;
+    
+    GameBoard* board;
+    
+    const char* user;
+    const char* pass;
+    
+    char* responseTokens[NUM_RESPONSE_TOKENS];
 };
 
 #endif
