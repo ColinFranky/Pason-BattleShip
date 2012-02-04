@@ -20,9 +20,11 @@ class Network
 {
 public:
     // Function prototypes here
-	void connect();
+	Network();
+	void  connectServer();
 	char* receiveMessage();
-	void sendMessage(char*);
+	void  sendMessage(char*);
+	char* getMessageBack();
     
 private:
     // Function prototypes here
