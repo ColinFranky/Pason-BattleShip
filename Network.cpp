@@ -49,7 +49,7 @@ char * Network::receiveMessage()
 	if(bytes > 0)
 	{
 		messageBack[bytes] = '\0';
-		return messageBack();
+		return messageBack;
 	}
 	return NULL;
 }
