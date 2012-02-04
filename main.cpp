@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     
     while ( !matchOver )
     {
-        Network* network = new Network(/* SERVER, PORT, USER, PASS */);
+        Network* network = new Network( server, port );
         
         Game* game = new Game(BOARD_X, BOARD_Y, BOARD_Z, moveType);
         

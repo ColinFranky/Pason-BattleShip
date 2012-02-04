@@ -3,21 +3,18 @@
  ***********************************/
 #include "Network.h"
 
-Network::Network()
-{ 
- #include "Network.h"
- #include <iostream>
+#include <iostream>
  
- Network::Network()
- {
-	//Initialization of server
+Network::Network( const char* serv, const int port )
+{
+    //Initialization of server
 	memset(&server,0,sizeof(server));
 	server.sin_family = AF_INET;
 	//PORT 6130 from Header
-	server.sin_port = htons(PORT);
+	server.sin_port = htons(port);
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
 	//obtaining server host ip.
-	host = gethostbyname("pason1.enel.ucalgary.ca");
+	host = gethostbyname(serv);
 	
 	if( host == NULL)
 	{
@@ -26,11 +23,11 @@ Network::Network()
 	}
 	//Setting host.
 	bcopy(host->h_addr, &server.sin_addr, host->h_length);
- }
+}
  
- void Network::connect()
- {
-	if( (serverSockfd = socket(PF_INET, SOCK_STREAM,0) ) == -1 )
+void Network::connect()
+{
+    if( (serverSockfd = socket(PF_INET, SOCK_STREAM,0) ) == -1 )
 	{
 		fprintf(stderr,"Failed to create client socket socket");
 		exit(1);
@@ -42,7 +39,6 @@ Network::Network()
 		fprintf(stderr,"failed to connect to server");
 		exit(1);
 	}
-	
 }
 
 

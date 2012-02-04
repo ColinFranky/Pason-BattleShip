@@ -19,12 +19,11 @@
 #include <errno.h> 
 
 #define MAX_MESSAGE_LENGTH 10000
-#define PORT 6130
 
 class Network
 {
 public:
-    Network();
+    Network( const char* serv, const int port );
     
 private:
     // Function prototypes here
