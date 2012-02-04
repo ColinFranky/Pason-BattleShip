@@ -73,6 +73,8 @@ private:
     char* responseTokens[NUM_RESPONSE_TOKENS];
     
     ShipLinkList targetList;
+    
+    //int gameNum;
 };
 
 #endif

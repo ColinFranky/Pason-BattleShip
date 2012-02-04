@@ -8,7 +8,7 @@ using namespace std;
 
 Game::Game( int x, int y, int z,
            moveTypes_t moveType, Network* network,
-           char* user, char* pass )
+           char* user, char* pass/*, int gameNum*/ )
 {
     srand(time(NULL));
     
@@ -34,6 +34,8 @@ Game::Game( int x, int y, int z,
             printf("\n\n********** USING DEFAULT *************\n\n" );
             break;
     }
+    
+    //this->gameNum = gameNum;
 }
 
 

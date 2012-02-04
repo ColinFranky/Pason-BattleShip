@@ -12,6 +12,9 @@ enum ships_t {FRI, SUB, DES, BAT, CAR};
 #include <stdio.h>
 #include <time.h>
 
+static int gameNum = 0;
+static bool setGameNum = false;
+
 class Ship
 {
 public:
@@ -24,7 +27,7 @@ public:
     
     ships_t shipType;
     
-    bool placeShip( Ship** ships);
+    bool placeShip( Ship** ships );
     
     ShipLinkList points;
     

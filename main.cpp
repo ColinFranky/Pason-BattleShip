@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "Game.h"
 #include "Network.h"
+#include "Ship.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ const int BOARD_X = 10;
 const int BOARD_Y = 10;
 const int BOARD_Z = 10;
 
-int gameNum = 0;
+//int gameNum = 0;
 
 int main(int argc, char* argv[])
 {
@@ -50,7 +51,7 @@ int main(int argc, char* argv[])
     {
         Network* network = new Network( server, port );
         
-        Game* game = new Game(BOARD_X, BOARD_Y, BOARD_Z, moveType, network, user, pass);
+        Game* game = new Game(BOARD_X, BOARD_Y, BOARD_Z, moveType, network, user, pass/*, gameNum*/);
         
         matchOver = game->run();
         
