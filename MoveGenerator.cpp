@@ -1,0 +1,1 @@
+#include "MoveGenerator.h"MoveGenerator::MoveGenerator(status_t* board){	gameBoard = board;}

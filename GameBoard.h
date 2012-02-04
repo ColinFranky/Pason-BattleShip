@@ -1,6 +1,6 @@
-#ifndef GAME_H
+#ifndef GAMEBOARD_H
 
-#define GAME_H
+#define GAMEBOARD_H
 
 /***********************************
  * Represents the 3D game board,
@@ -26,6 +26,6 @@ private:
     int xLength;
     int yLength;
     int zLength;
-}
+};
 
 #endif
