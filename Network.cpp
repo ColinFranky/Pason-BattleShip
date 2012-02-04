@@ -34,6 +34,7 @@ void Network::connectServer()
 	}	
 
 	
+    // Using socket library
 	if( connect(serverSockfd, (struct sockaddr *)&server, sizeof(struct sockaddr_in)) == -1)
 	{
 		fprintf(stderr,"failed to connect to server");

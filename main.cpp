@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     
     if( argc != 6 )
     {
-        printf( "USAGE: [server] [port] [username] [password] [moveType]" );
+        printf( "USAGE: [server] [port] [username] [password] [moveType]\n" );
         exit(0);
     }
     
