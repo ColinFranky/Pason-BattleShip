@@ -41,13 +41,13 @@ GameBoard::~GameBoard()
 }
 
 
-status_t GameBoard::getStatus(Move* move)
+status_t GameBoard::getStatus(struct Move* move)
 {
 	return board[move->x][move->y][move->z];
 }
 
 
-void GameBoard::setStatus(Move* move, status_t status)
+void GameBoard::setStatus(struct Move* move, status_t status)
 {
 	if(board[move->x][move->y][move->z] == UNKNOWN )
     {
