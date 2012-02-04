@@ -12,7 +12,7 @@ class RandomGenerator:virtual public MoveGenerator
 public:
 	RandomGenerator(GameBoard* board);
 	
-	struct Move generateMove();
+	struct Move* generateMove();
 	
 	int generator();
 
