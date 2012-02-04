@@ -13,14 +13,16 @@ enum status_t {UNKNOWN, HIT, MISS};
 class GameBoard
 {
 public:
-    GameBoard( x, y, z );
+    GameBoard(int x,int y,int z );
     
-    status_t getStatus( x, y, z );
+    status_t getStatus(int x,int y,int z );
     
-    void setStatus( x, y, z, status_t status );
+    void setStatus(int x,int y,int z, status_t status );
     
+	~GameBoard();
+	
 private:
-    int*** board;
+    status_t*** board;
 }
 
 #endif
