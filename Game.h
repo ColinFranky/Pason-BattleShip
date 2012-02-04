@@ -14,6 +14,7 @@
 #include "MoveGenerator.h"
 #include "RandomGenerator.h"
 #include "SequentialGenerator.h"
+#include "Move.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -23,13 +24,10 @@ enum ships_t {FRI, SUB, DES, BAT, CAR};
 
 enum moveTypes_t {RAND, SEQ};
 
-struct Move {
-    int x;
-    int y;
-    int z;
-};
-
-
+//class GameBoard;
+//class MoveGenerator;
+//class RandomGenerator;
+//class SequentialGenerator;
 
 class Game
 {
@@ -53,7 +51,7 @@ private:
     
     bool matchIsOver();
     
-    char* formatMoveMessage(struct Move* move);
+    char* formatMoveMessage(Move* move);
     
     char* formatLoginMessage();
     

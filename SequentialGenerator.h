@@ -8,10 +8,10 @@ class SequentialGenerator: virtual public MoveGenerator
 
 public:
 	SequentialGenerator(GameBoard* board);
-	struct Move* generateMove();
+	Move* generateMove();
 	
 private:
-	struct Move lastMove;
+	Move lastMove;
 
 };
 

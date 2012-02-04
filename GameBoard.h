@@ -9,6 +9,7 @@
  ***********************************/
 
 #include "Game.h"
+#include "Move.h"
 
 enum status_t {UNKNOWN, HIT, MISS};
 
@@ -17,9 +18,9 @@ class GameBoard
 public:
     GameBoard(int x,int y,int z );
     
-    status_t getStatus( struct Move* move );
+    status_t getStatus( Move* move );
     
-    void setStatus(struct Move* move, status_t status );
+    void setStatus( Move* move, status_t status );
     
     ~GameBoard();
     

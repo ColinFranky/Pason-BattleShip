@@ -80,7 +80,7 @@ bool Game::login()
 
 char* Game::makeMove()
 {
-    struct Move* move = generator->generateMove();
+    Move* move = generator->generateMove();
     
     char* message = formatMoveMessage( move );
     network->sendMessage(message);
@@ -124,7 +124,7 @@ bool Game::matchIsOver()
 
 
 
-char* Game::formatMoveMessage(struct Move* move)
+char* Game::formatMoveMessage(Move* move)
 {
     char* message = new char[256];
     
