@@ -49,9 +49,9 @@ int main(int argc, char* argv[])
     {
         Network* network = new Network( server, port );
         
-        Game* game = new Game(BOARD_X, BOARD_Y, BOARD_Z, moveType);
+        Game* game = new Game(BOARD_X, BOARD_Y, BOARD_Z, moveType, network, user, pass);
         
-        matchOver = game->run(network);
+        matchOver = game->run();
         
         printf( "\nGame %d complete\n", gameNum );
         gameNum++;

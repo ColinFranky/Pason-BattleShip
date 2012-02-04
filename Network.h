@@ -24,17 +24,12 @@ class Network
 {
 public:
     Network( const char* serv, const int port );
+    void  sendMessage(char*);
+    char* receiveMessage();
     
 private:
-    // Function prototypes here
-	Network();
 	void  connectServer();
-	char* receiveMessage();
-	void  sendMessage(char*);
 	char* getMessageBack();
-    
-private:
-    // Function prototypes here
 	int serverSockfd;
 	struct sockaddr_in server;
 	struct hostent *host;
