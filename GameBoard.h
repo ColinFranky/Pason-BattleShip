@@ -19,8 +19,13 @@ public:
     
     void setStatus( x, y, z, status_t status );
     
+    ~GameBoard();
+    
 private:
-    int*** board;
+    status_t*** board;
+    int xLength;
+    int yLength;
+    int zLength;
 }
 
 #endif
