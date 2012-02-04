@@ -7,13 +7,15 @@ RandomGenerator::RandomGenerator(GameBoard* board): MoveGenerator(board)
 	currentMove.y = 0;
 	currentMove.z = 0;
     
+    prevMove.x = 0;
+    prevMove.y = 0;
+    prevMove.z = 0;
+    
     seedTime = 432;
 }
 
 struct Move* RandomGenerator::generateMove()
-{
-    //int random = generator();
-    
+{    
     currentMove.x = abs((generator() * 41)% 10);
     currentMove.y = abs(generator() % 10);
     currentMove.z = abs((generator() * 17)%10);
@@ -34,10 +36,6 @@ struct Move* RandomGenerator::generateMove()
     }
     
     return &currentMove;
-    
-    /*if(gameBoard->getStatus(&currentMove) == UNKNOWN){
-        return &currentMove;
-    }*/
 	
 }
 

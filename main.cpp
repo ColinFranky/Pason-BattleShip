@@ -15,10 +15,11 @@ const int BOARD_X = 10;
 const int BOARD_Y = 10;
 const int BOARD_Z = 10;
 
+int gameNum = 0;
+
 int main(int argc, char* argv[])
 {
     bool matchOver = false;
-    int gameNum = 0;
     moveTypes_t moveType = RAND;
     
     if( argc != 6 )

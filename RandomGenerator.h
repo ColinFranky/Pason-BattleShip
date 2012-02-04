@@ -19,6 +19,7 @@ public:
 
 private:
 	Move currentMove;
+    Move prevMove;
     int seedTime;
 
 };

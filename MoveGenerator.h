@@ -1,1 +1,1 @@
-#ifndef MOVEGENERATOR_H#define MOVEGENERATOR_H#include "GameBoard.h"#include "Move.h"class MoveGenerator{public:		MoveGenerator(GameBoard* board);		virtual Move* generateMove() = 0;	protected:	 GameBoard* gameBoard;	 };#endif
+#ifndef MOVEGENERATOR_H#define MOVEGENERATOR_H#include "GameBoard.h"#include "Move.h"class MoveGenerator{public:		MoveGenerator(GameBoard* board);		virtual Move* generateMove() = 0;	protected:    GameBoard* gameBoard;    int turnNum;};#endif

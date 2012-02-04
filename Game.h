@@ -71,6 +71,8 @@ private:
     char* pass;
     
     char* responseTokens[NUM_RESPONSE_TOKENS];
+    
+    ShipLinkList targetList;
 };
 
 #endif

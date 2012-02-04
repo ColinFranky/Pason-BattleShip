@@ -17,6 +17,7 @@ Ship::Ship( Move* center, int radX, int radY, int radZ, ships_t shipType )
 
 bool Ship::placeShip( Ship** ships )
 {
+    gameNum = 100;
     center  = new Move(-1, -1, -1);
     
     bool centerValid = false;
@@ -27,13 +28,13 @@ bool Ship::placeShip( Ship** ships )
     while( !centerValid && count < 1000 )
     {
         // Generate x
-        center->x = (rand() % (9 - 2*radiusX)) + radiusX;
+        //center->x = (rand() % (9 - 2*radiusX)) + radiusX;
         
         // Generate y
-        center->y = (rand() % (9 - 2*radiusY)) + radiusY;
+        //center->y = (rand() % (9 - 2*radiusY)) + radiusY;
         
         // Generate z
-        center->z = (rand() % (9 - 2*radiusZ)) + radiusZ;
+        //center->z = (rand() % (9 - 2*radiusZ)) + radiusZ;
         switch (shipType) {
             case FRI:
                 addPointsFrigate();
@@ -118,6 +119,10 @@ bool Ship::placeShip( Ship** ships )
 
 void Ship::addPointsFrigate()
 {
+    /*center->x = 1;
+    center->y = 9;
+    center->z = 8;
+    
     Move* point = new Move( (center->x - 1), center->y, center->z );
     points.add( point );
     
@@ -125,6 +130,23 @@ void Ship::addPointsFrigate()
     points.add( center );
     
     point = new Move( (center->x + 1), center->y, center->z );
+    points.add( point );*/
+    
+    
+//============================================
+    
+    
+    center->x = 0;
+    center->y = 9;
+    center->z = 8;
+    
+    Move* point = new Move( center->x, center->y, (center->z - 1) );
+    points.add( point );
+    
+    point = new Move( center->x, center->y, center->z );
+    points.add( center );
+    
+    point = new Move( center->x, center->y, (center->z + 1) );
     points.add( point );
 }
 
@@ -132,6 +154,33 @@ void Ship::addPointsFrigate()
 
 void Ship::addPointsDestroyer()
 {
+    /*center->x = 4;
+    center->y = 4;
+    center->z = 6;
+    
+    Move* point = new Move( center->x - 1, center->y, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y, center->z );
+    points.add( center );
+    
+    point = new Move( center->x + 1, center->y, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y + 1, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y - 1, center->z );
+    points.add( point );*/
+    
+    
+//===============================================================    
+    
+    
+    center->x = 2;
+    center->y = 3;
+    center->z = 7;
+    
     Move* point = new Move( center->x - 1, center->y, center->z );
     points.add( point );
     
@@ -150,6 +199,33 @@ void Ship::addPointsDestroyer()
 
 void Ship::addPointsSub()
 {
+    /*center->x = 7;
+    center->y = 4;
+    center->z = 9;
+    
+    Move* point = new Move( center->x, center->y - 2, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y - 1, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y, center->z );
+    points.add( center );
+    
+    point = new Move( center->x, center->y + 1, center->z );
+    points.add( point );
+    
+    point = new Move( center->x, center->y + 2, center->z );
+    points.add( point );*/
+    
+
+// ================================================================
+    
+    
+    center->x = 7;
+    center->y = 4;
+    center->z = 8;
+    
     Move* point = new Move( center->x, center->y - 2, center->z );
     points.add( point );
     
@@ -168,6 +244,10 @@ void Ship::addPointsSub()
 
 void Ship::addPointsCarrier()
 {
+    center->x = 7;
+    center->y = 2;
+    center->z = 2;
+    
     Move* point = new Move( center->x - 2, center->y, center->z );
     points.add( point );
     
@@ -210,6 +290,10 @@ void Ship::addPointsCarrier()
 
 void Ship::addPointsBattle()
 {    
+    /*center->x = 1;
+    center->y = 7;
+    center->z = 3;
+    
     Move* point = new Move( center->x - 1, center->y + 1, center->z );
     points.add( point );
     
@@ -232,7 +316,39 @@ void Ship::addPointsBattle()
     points.add( point );
     
     point = new Move( center->x + 1, center->y - 1, center->z );
+    points.add( point );*/
+    
+    
+// ========================================================================
+    
+    center->x = 2;
+    center->y = 8;
+    center->z = 2;
+    
+    Move* point = new Move( center->x - 1, center->y, center->z + 1 );
     points.add( point );
+    
+    point = new Move( center->x, center->y, center->z + 1 );
+    points.add( point );
+    
+    point = new Move( center->x + 1, center->y, center->z + 1 );
+    points.add( point );
+    
+    point = new Move( center->x - 1, center->y, center->z );
+    points.add( point );
+    
+    point = new Move( center->x + 1, center->y, center->z );
+    points.add( point );
+    
+    point = new Move( center->x - 1, center->y, center->z - 1 );
+    points.add( point );
+    
+    point = new Move( center->x, center->y, center->z - 1 );
+    points.add( point );
+    
+    point = new Move( center->x + 1, center->y, center->z - 1 );
+    points.add( point );
+    
 }
 
 

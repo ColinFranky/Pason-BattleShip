@@ -59,6 +59,7 @@ char * Network::receiveMessage()
 void Network::sendMessage(char* messageToSend)
 {
 	send(serverSockfd,messageToSend,strlen(messageToSend),0);
+    messageBack[0] = '\0';
 }
 
 char* Network::getMessageBack()

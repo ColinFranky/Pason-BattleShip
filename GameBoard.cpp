@@ -47,6 +47,13 @@ status_t GameBoard::getStatus(Move* move)
 }
 
 
+
+status_t GameBoard::getStatus(int x, int y, int z)
+{
+	return board[x][y][z];
+}
+
+
 void GameBoard::setStatus(Move* move, status_t status)
 {
 	if(board[move->x][move->y][move->z] == UNKNOWN )

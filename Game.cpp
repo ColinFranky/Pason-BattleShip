@@ -69,6 +69,8 @@ bool Game::run()
     bool gameOver = false;
     char* response = NULL;
     
+    response = network->receiveMessage();
+    
     while( !gameOver )
     {
         printf( "Making move.\n" );
@@ -100,6 +102,16 @@ bool Game::login()
     
     printf( "\nRECEIVED: %s\n", response );
     
+    char** responseTokens = new char*[2];
+    
+    responseTokens[0] = strtok(response, "|");
+    
+    for(int i = 1; i < 2; i++ )
+        responseTokens[i] = strtok( NULL, "|" );
+    
+    if( strcmp(responseTokens[0], "FAIL") == 0 )
+        return false;
+    
     return true;
 }
 
@@ -115,6 +127,7 @@ void Game::placeShips()
     ships[SUB] = new Ship( NULL, 0, 2, 0, SUB );
     ships[BAT] = new Ship( NULL, 1, 1, 1, BAT );
     ships[DES] = new Ship( NULL, 1, 1, 1, DES );
+    //ships[DES] = new Ship( NULL, 1, 2, 1, DES );
     ships[CAR] = new Ship( NULL, 2, 2, 2, CAR );
     
     bool success = true;
@@ -177,7 +190,89 @@ void Game::placeShips()
 
 char* Game::makeMove()
 {
-    Move* move = generator->generateMove();
+    Move* move = NULL;
+    
+    while( targetList.head != NULL )
+    {
+        printf( "\nProcessing list.\n" );
+        
+        Move* point = targetList.head->position;
+        
+        printf( "\nTEST\n" );
+        
+        if( point == NULL )
+            break;
+        
+        if(  point->x + 1 < 10 && board->getStatus( point->x + 1, point->y, point->z ) == UNKNOWN )
+        {
+            printf( "\nCompleted x+1\n" );
+            if( move != NULL )
+                delete move;
+        
+            move = new Move( point->x + 1, point->y, point->z );
+            break;
+        }
+        
+        else if( point->x - 1 >= 0 && board->getStatus( point->x - 1, point->y, point->z ) == UNKNOWN )
+        {
+            printf( "\nCompleted x-1\n" );
+            if( move != NULL )
+                delete move;
+            
+            move = new Move( point->x - 1, point->y, point->z );
+            break;
+        }
+        
+        else if( point->y + 1 < 10 && board->getStatus( point->x, point->y + 1, point->z ) == UNKNOWN )
+        {
+            printf( "\nCompleted y+1\n" );
+            if( move != NULL )
+                delete move;
+            
+            move = new Move( point->x, point->y + 1, point->z );
+            break;
+        }
+        
+        else if( point->y - 1 >= 0 && board->getStatus( point->x, point->y - 1, point->z ) == UNKNOWN )
+        {
+            printf( "\nCompleted y-1\n" );
+            if( move != NULL )
+                delete move;
+            
+            move = new Move( point->x, point->y - 1, point->z );
+            break;
+        }
+        
+        else if( point->z + 1 < 10 && board->getStatus( point->x, point->y, point->z + 1 ) == UNKNOWN )
+        {
+            printf( "\nCompleted z+1\n" );
+            if( move != NULL )
+                delete move;
+            
+            move = new Move( point->x, point->y, point->z + 1 );
+            break;
+        }
+        
+        else if( point->z - 1 >= 0 && board->getStatus( point->x, point->y, point->z - 1 ) == UNKNOWN )
+        {
+            printf( "\nCompleted z-1\n" );
+            if( move != NULL )
+                delete move;
+            
+            move = new Move( point->x, point->y, point->z - 1 );
+            break;
+        }
+        else
+        {
+            printf( "\nCompleted else\n" );
+            targetList.remove( targetList.head );
+        }
+    }
+    
+    printf( "\nList processed.\n" );
+    
+    if( move == NULL )
+        move = generator->generateMove();
     
     char* message = formatMoveMessage( move );
     
@@ -196,11 +291,13 @@ char* Game::makeMove()
     {
         printf( "\nHIT MARKED\n" );
         board->setStatus(move, HIT);
+        
+        targetList.add( move );
     }
     else if( strcmp(responseTokens[0], "MISS") == 0 )
     {
         board->setStatus(move, MISS);
-        printf( "\nHIT MARKED\n" );
+        printf( "\nMISS MARKED\n" );
     }
     
     return response;
@@ -262,4 +359,6 @@ void Game::tokenizeResponse( char* response )
     
     for(int i = 1; i < NUM_RESPONSE_TOKENS && responseTokens[i-1] != NULL; i++ )
         responseTokens[i] = strtok( NULL, "|" );
+    
+    printf( "\n\nHIT/MISS: %s\n\n", responseTokens[0] );
 }

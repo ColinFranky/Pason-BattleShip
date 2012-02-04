@@ -20,6 +20,23 @@ void ShipLinkList::add(Move* location)
 	}
 }
 
+void ShipLinkList::remove(ShipNode* node)
+{
+	if(node == NULL)
+		return;
+	else
+	{
+        if( head == tail )
+            tail = NULL;
+        
+        ShipNode* temp = head;
+        
+        head = head->next;
+        
+        delete temp;
+	}
+}
+
 ShipLinkList::~ShipLinkList()
 {
 	ShipNode* temp;

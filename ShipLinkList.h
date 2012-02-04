@@ -14,6 +14,7 @@ public:
 	ShipNode* head;
 	ShipNode* tail;
 	void add(Move* location);
+    void remove(ShipNode* node);
 	
 	~ShipLinkList();
 private:
