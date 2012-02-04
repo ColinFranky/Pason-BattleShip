@@ -1,3 +1,7 @@
+#ifndef NETWORK_H
+
+#define NETWORK_H
+
 /***********************************
  * Manages all network connections,
  * reconnects, data sending and data
@@ -7,8 +11,10 @@
 class Network
 {
 public:
-    // Function prototypes here
+    Network();
     
 private:
     // Function prototypes here
 };
+
+#endif
