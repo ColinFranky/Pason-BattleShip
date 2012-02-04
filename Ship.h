@@ -18,6 +18,8 @@ public:
     ships_t shipType;
     
     void placeShip( Ship[] ships);
+    
+    ShipLinkedList points;
 }
 
 #endif
