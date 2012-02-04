@@ -8,7 +8,7 @@ SequentialGenerator::SequentialGenerator(GameBoard* board):MoveGenerator(board)
 	lastMove.z = 0;
 }
 
-Move SequentialGenerator::generateMove(){
+struct Move* SequentialGenerator::generateMove(){
 	lastMove.x = (lastMove.x + 1) % 10;
 	if(lastMove.x == 0)
 	{
@@ -22,6 +22,6 @@ Move SequentialGenerator::generateMove(){
 	lastMove.y = lastMove.y % 10;
 	lastMove.z = lastMove.z % 10;
 	
-	return lastMove;
+	return &lastMove;
 	
 }
