@@ -14,13 +14,12 @@
 #include "MoveGenerator.h"
 #include "RandomGenerator.h"
 #include "SequentialGenerator.h"
+#include "Ship.h"
 #include "Move.h"
 #include <stdio.h>
 #include <string.h>
 
 #define NUM_RESPONSE_TOKENS 3
-
-enum ships_t {FRI, SUB, DES, BAT, CAR};
 
 enum moveTypes_t {RAND, SEQ};
 
@@ -39,6 +38,8 @@ private:
      ***************************************/
     
     bool login();
+    
+    void placeShips();
     
     char* makeMove();
     

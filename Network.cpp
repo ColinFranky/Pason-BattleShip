@@ -23,6 +23,8 @@ Network::Network( const char* serv, const int port )
 	}
 	//Setting host.
 	bcopy(host->h_addr, &server.sin_addr, host->h_length);
+    
+    connectServer();
 }
  
 void Network::connectServer()

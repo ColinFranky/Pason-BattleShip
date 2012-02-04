@@ -10,17 +10,28 @@ Game::Game( int x, int y, int z,
            moveTypes_t moveType, Network* network,
            char* user, char* pass )
 {
+    srand(time(NULL));
+    
     this->board = new GameBoard( x, y, z );
     this->network = network;
     
+    this->user = user;
+    this->pass = pass;
+    
+    //printf( "\n\nMoveType = %d\n\n", moveType );
+    //exit(0);
+    
     switch( moveType )
     {
-        SEQ:
+        case SEQ:
             this->generator = new SequentialGenerator( board );
+            printf("\n\n********** USING SEQUENTIAL *************\n\n" );
             break;
-        RAND:
+        case RAND:
+            printf("\n\n********** USING RANDOM *************\n\n" );
         default:
             this->generator = new RandomGenerator( board );
+            printf("\n\n********** USING DEFAULT *************\n\n" );
             break;
     }
 }
@@ -39,8 +50,9 @@ bool Game::run()
     
     bool loggedIn = false;
     
+    printf( "Logging in.\n" );
     for(int i = 0; i < 100 && !loggedIn; i++ )
-        login();
+        loggedIn = login();
     
     if( !loggedIn )
     {
@@ -48,11 +60,18 @@ bool Game::run()
         exit(0);
     }
     
+    printf( "Logged in.\n" );
+    
+    placeShips();
+    
+    printf( "Ships placed.\n" );
+    
     bool gameOver = false;
     char* response = NULL;
     
     while( !gameOver )
     {
+        printf( "Making move.\n" );
         response = makeMove();
         
         gameOver = gameIsOver();
@@ -69,11 +88,43 @@ bool Game::run()
 
 bool Game::login()
 {
+    printf( "Formatting.\n" );
     char* message = formatLoginMessage();
+    
+    printf( "\nSENDING: %s\n", message );
     network->sendMessage( message );
     delete message;
     
+    char* response;
+    while( (response = network->receiveMessage()) == NULL );
+    
+    printf( "\nRECEIVED: %s\n", response );
+    
     return true;
+}
+
+
+
+void Game::placeShips()
+{
+    char* message = (char*) "FF:9,0,0;9,0,1;9,0,2|SSK:9,0,3;9,0,4;9,0,5;9,0,6;9,0,7|DDH:0,1,0;1,0,0;1,1,0;1,2,0;2,1,0|BB:1,1,1;1,1,2;1,1,3;1,2,1;1,2,3;1,3,1;1,3,2;1,3,3|CVL:0,2,2;1,2,2;2,2,2;3,2,2;4,2,2;2,0,2;2,1,2;2,3,2;2,4,2;2,2,0;2,2,1;2,2,3;2,2,4\r\n";
+    
+    Ship* ships = new Ship[5];
+    
+    ships[FRI] = new Ship( NULL, 1, 0, 0 );
+    ships[SUB] = new Ship( NULL, 0, 2, 0 );
+    ships[BAT] = new Ship( NULL, 1, 1, 1 );
+    ships[DES] = new Ship( NULL, 1, 1, 1 );
+    ships[CAR] = new Ship( NULL, 2, 2, 2 );
+    
+    printf( "\nSENDING: %s\n", message );
+    network->sendMessage( message );
+    //delete message;
+    
+    char* response;
+    while( (response = network->receiveMessage()) == NULL );
+    
+    printf( "\nRECEIVED: %s\n", response );
 }
 
 
@@ -83,19 +134,28 @@ char* Game::makeMove()
     Move* move = generator->generateMove();
     
     char* message = formatMoveMessage( move );
+    
+    printf( "\nSENDING: %s\n", message );
     network->sendMessage(message);
     delete message;
     
     char* response;
     
     while( (response = network->receiveMessage()) == NULL );
+    printf( "\nRECEIVED: %s\n", response );
     
     tokenizeResponse( response );
     
     if( strcmp(responseTokens[0], "HIT") == 0 )
+    {
+        printf( "\nHIT MARKED\n" );
         board->setStatus(move, HIT);
+    }
     else if( strcmp(responseTokens[0], "MISS") == 0 )
+    {
         board->setStatus(move, MISS);
+        printf( "\nHIT MARKED\n" );
+    }
     
     return response;
 }
@@ -128,21 +188,6 @@ char* Game::formatMoveMessage(Move* move)
 {
     char* message = new char[256];
     
-    /*char* x = new char[32];
-    char* y = new char[32];
-    char* z = new char[32];
-    
-    itoa(move->x, x, 10);
-    itoa(move->y, y, 10);
-    itoa(move->z, z, 10);
-    
-    strcpy(message, x);
-    strcat(message, ",");
-    strcat(message, y);
-    strcat(message, ",");
-    strcat(message, z);
-    strcat(message, "\r\n");*/
-    
     sprintf(message, "%d,%d,%d\r\n", move->x, move->y, move->z);
     
     return message;
@@ -152,13 +197,13 @@ char* Game::formatMoveMessage(Move* move)
 
 char* Game::formatLoginMessage()
 {
+    printf( "Formatting login.\n" );
     char* message = new char[256];
     
-    strcpy(message, user);
+    printf( "User: %s\n", user );
+    printf( "Pass: %s\n", pass );
     
-    strcat(message, "|");
-    strcat(message, pass);
-    strcat(message, "\r\n");
+    sprintf(message, "%s|%s\r\n", user, pass);
     
     return message;
 }
@@ -166,9 +211,9 @@ char* Game::formatLoginMessage()
 
 
 void Game::tokenizeResponse( char* response )
-{    
-    responseTokens[0] = strtok(response, "|\r\n");
+{  
+    responseTokens[0] = strtok(response, "|");
     
     for(int i = 1; i < NUM_RESPONSE_TOKENS && responseTokens[i-1] != NULL; i++ )
-        responseTokens[i] = strtok( NULL, "|\r\n" );
+        responseTokens[i] = strtok( NULL, "|" );
 }

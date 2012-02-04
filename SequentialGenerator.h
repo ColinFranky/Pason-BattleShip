@@ -3,6 +3,8 @@
 #define SEQUENTIALGENERATOR_H
 
 #include "MoveGenerator.h"
+#include <stdio.h>
+
 class SequentialGenerator: virtual public MoveGenerator
 {
 

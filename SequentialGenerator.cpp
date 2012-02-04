@@ -9,6 +9,8 @@ SequentialGenerator::SequentialGenerator(GameBoard* board):MoveGenerator(board)
 }
 
 struct Move* SequentialGenerator::generateMove(){
+    printf( "\nX: %d; Y: %d; Z: %d\n", lastMove.x, lastMove.y, lastMove.z );
+    
 	lastMove.x = (lastMove.x + 1) % 10;
 	if(lastMove.x == 0)
 	{
@@ -18,9 +20,9 @@ struct Move* SequentialGenerator::generateMove(){
 		}
 	}
 	
-	lastMove.x = lastMove.x % 10;
+	/*lastMove.x = lastMove.x % 10;
 	lastMove.y = lastMove.y % 10;
-	lastMove.z = lastMove.z % 10;
+	lastMove.z = lastMove.z % 10;*/
 	
 	return &lastMove;
 	

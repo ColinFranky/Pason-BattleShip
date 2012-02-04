@@ -5,6 +5,8 @@
 #include "MoveGenerator.h"
 #include <cstdlib>
 #include <ctime>
+#include <stdio.h>
+#include <math.h>
 
 //class MoveGenerator;
 //class GameBoard;
@@ -20,6 +22,7 @@ public:
 
 private:
 	Move currentMove;
+    int seedTime;
 
 };
 
