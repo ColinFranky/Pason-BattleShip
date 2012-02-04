@@ -4,10 +4,10 @@
 #include "Network.h"
 
 #include <iostream>
- 
+
 Network::Network( const char* serv, const int port )
 {
-    //Initialization of server
+	//Initialization of server
 	memset(&server,0,sizeof(server));
 	server.sin_family = AF_INET;
 	//PORT 6130 from Header
@@ -25,9 +25,9 @@ Network::Network( const char* serv, const int port )
 	bcopy(host->h_addr, &server.sin_addr, host->h_length);
 }
  
-void Network::connect()
+void Network::connectServer()
 {
-    if( (serverSockfd = socket(PF_INET, SOCK_STREAM,0) ) == -1 )
+	if( (serverSockfd = socket(PF_INET, SOCK_STREAM,0) ) == -1 )
 	{
 		fprintf(stderr,"Failed to create client socket socket");
 		exit(1);
@@ -46,11 +46,19 @@ char * Network::receiveMessage()
 {
 	bytes = recv(serverSockfd, messageBack, MAX_MESSAGE_LENGTH, 0);
 	if(bytes > 0)
-		return messageBack();
+	{
+		messageBack[bytes] = '\0';
+		return messageBack;
+	}
 	return NULL;
 }
 
 void Network::sendMessage(char* messageToSend)
 {
 	send(serverSockfd,messageToSend,strlen(messageToSend),0);
+}
+
+char* Network::getMessageBack()
+{
+	return messageBack;
 }
