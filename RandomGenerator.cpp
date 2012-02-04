@@ -1,7 +1,7 @@
 
 #include "RandomGenerator.h"
 
-RandomGenerator::RandomGenerator(status_t* board): MoveGenerator(board)
+RandomGenerator::RandomGenerator(GameBoard* board): MoveGenerator(board)
 {
 	currentMove.x = 0;
 	currentMove.y = 0;

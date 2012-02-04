@@ -8,6 +8,8 @@
  * hit, missed or not shot at.
  ***********************************/
 
+#include "Game.h"
+
 enum status_t {UNKNOWN, HIT, MISS};
 
 class GameBoard

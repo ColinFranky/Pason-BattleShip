@@ -10,6 +10,10 @@
  ***********************************/
 
 #include "Network.h"
+#include "GameBoard.h"
+#include "MoveGenerator.h"
+#include "RandomGenerator.h"
+#include "SequentialGenerator.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -30,7 +34,7 @@ struct Move {
 class Game
 {
 public:
-    Game( int x, int y, int z, moveTypes_t moveType, Network* network );
+    Game( int x, int y, int z, moveTypes_t moveType, Network* network, char* user, char* pass );
     
     bool run();
     
@@ -69,8 +73,8 @@ private:
     
     GameBoard* board;
     
-    const char* user;
-    const char* pass;
+    char* user;
+    char* pass;
     
     char* responseTokens[NUM_RESPONSE_TOKENS];
 };

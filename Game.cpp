@@ -6,18 +6,22 @@
 
 using namespace std;
 
-Game::Game( int x, int y, int z, moveTypes_t moveType, Network* network, const char* user, const char* pass )
+Game::Game( int x, int y, int z,
+           moveTypes_t moveType, Network* network,
+           char* user, char* pass )
 {
-    board = new GameBoard( x, y, z );
-    this.network = network;
+    this->board = new GameBoard( x, y, z );
+    this->network = network;
     
     switch( moveType )
     {
-        RAND:
-            generator = new RandomMoveGenerator( board );
-            break;
         SEQ:
-            generator = new SequentialMoveGenerator( board );
+            this->generator = new SequentialGenerator( board );
+            break;
+        RAND:
+        default:
+            this->generator = new RandomGenerator( board );
+            break;
     }
 }
 

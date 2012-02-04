@@ -1,7 +1,7 @@
 #include "SequentialGenerator.h"
 
 
-SequentialGenerator::SequentialGenerator(status_t* board):MoveGenerator(board)
+SequentialGenerator::SequentialGenerator(GameBoard* board):MoveGenerator(board)
 {
 	lastMove.x = 0;
 	lastMove.y = 0;

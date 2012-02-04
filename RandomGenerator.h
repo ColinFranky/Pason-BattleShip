@@ -10,7 +10,7 @@ class RandomGenerator:virtual public MoveGenerator
 {
 
 public:
-	RandomGenerator(status_t* board);
+	RandomGenerator(GameBoard* board);
 	
 	Move generateMove();
 	

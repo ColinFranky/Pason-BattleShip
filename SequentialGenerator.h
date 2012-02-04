@@ -7,7 +7,7 @@ class SequentialGenerator: virtual public MoveGenerator
 {
 
 public:
-	SequentialGenerator(status_t* board);
+	SequentialGenerator(GameBoard* board);
 	Move generateMove();
 	
 private:
