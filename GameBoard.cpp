@@ -27,6 +27,7 @@ GameBoard::GameBoard( int x, int y, int z )
                 board[i][j][k] = UKNOWN;
 }
 
+
 GameBoard::~Gameboard()
 {
     for( int x = 0; x < xLength; x++ )
@@ -37,4 +38,19 @@ GameBoard::~Gameboard()
         delete board[x][];
     
     delete board[];
+}
+
+
+status_t GameBoard::getStatus(int x,int y, int z)
+{
+	return board[x][y][z];
+}
+
+
+void GameBoard::setStatus(int x, int y, int z, status_t status)
+{
+	if(board[x][y][z] == UNKNOWN )
+    {
+		board[x][y][z] = status;
+	}
 }
