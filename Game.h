@@ -53,11 +53,11 @@ private:
     
     bool matchIsOver();
     
-    char* formatMoveMessage(const struct Move* move);
+    char* formatMoveMessage(struct Move* move);
     
     char* formatLoginMessage();
     
-    void tokenizeResponse(const char* response);
+    void tokenizeResponse(char* response);
     
     
     

@@ -12,12 +12,12 @@ class RandomGenerator:virtual public MoveGenerator
 public:
 	RandomGenerator(GameBoard* board);
 	
-	Move generateMove();
+	struct Move generateMove();
 	
 	int generator();
 
 private:
-	Move currentMove;
+	struct Move currentMove;
 
 };
 

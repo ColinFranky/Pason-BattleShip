@@ -95,7 +95,7 @@ char* Game::makeMove()
     if( strcmp(responseTokens[0], "HIT") == 0 )
         board->setStatus(move, HIT);
     else if( strcmp(responseTokens[0], "MISS") == 0 )
-        board->setstatus(move, MISS);
+        board->setStatus(move, MISS);
     
     return response;
 }
@@ -124,7 +124,7 @@ bool Game::matchIsOver()
 
 
 
-char* Game::formatMoveMessage(const struct Move* move)
+char* Game::formatMoveMessage(struct Move* move)
 {
     char* message = new char[256];
     
@@ -132,9 +132,9 @@ char* Game::formatMoveMessage(const struct Move* move)
     char* y = new char[32];
     char* z = new char[32];
     
-    atoi(move.x, x, 10);
-    atoi(move.y, y, 10);
-    atoi(move.z, z, 10);
+    itoa(move->x, x, 10);
+    itoa(move->y, y, 10);
+    itoa(move->z, z, 10);
     
     strcpy(message, x);
     strcat(message, ",");
@@ -163,10 +163,10 @@ char* Game::formatLoginMessage()
 
 
 
-void Game::tokenizeResponse( const char* response )
+void Game::tokenizeResponse( char* response )
 {    
     responseTokens[0] = strtok(response, "|\r\n");
     
-    for(int i = 1; i < NUM_RESPONSE_TOKENS && token != NULL; i++ )
+    for(int i = 1; i < NUM_RESPONSE_TOKENS && responseTokens[i-1] != NULL; i++ )
         responseTokens[i] = strtok( NULL, "|\r\n" );
 }

@@ -17,9 +17,9 @@ class GameBoard
 public:
     GameBoard(int x,int y,int z );
     
-    status_t getStatus( struct Move move );
+    status_t getStatus( struct Move* move );
     
-    void setStatus(struct Move move, status_t status );
+    void setStatus(struct Move* move, status_t status );
     
     ~GameBoard();
     
