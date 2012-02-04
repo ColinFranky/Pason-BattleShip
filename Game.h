@@ -67,7 +67,7 @@ private:
     
     moveTypes_t moveType;
     
-    MoveGenerator generator;
+    MoveGenerator* generator;
     
     Network* network;
     
