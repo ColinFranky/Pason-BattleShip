@@ -27,10 +27,10 @@ int main(int argc, char* argv[])
         exit(0);
     }
     
-    const char* server = argv[1];
-    const int port = (int) atol( argv[2] );
-    const char* user = argv[3];
-    const char* pass = argv[4];
+    char* server = argv[1];
+    int port = (int) atol( argv[2] );
+    char* user = argv[3];
+    char* pass = argv[4];
     
     printf( "\nuser: '%s' pass: '%s'\n", user, pass );
     

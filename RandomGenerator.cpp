@@ -15,7 +15,7 @@ struct Move* RandomGenerator::generateMove()
 		currentMove.x = generator();
 		currentMove.y = generator();
 		currentMove.z = generator();
-		if(gameBoard.getStatus(currentMove) == UNKNOWN){
+		if(gameBoard->getStatus(&currentMove) == UNKNOWN){
 			return &currentMove;
 		}
 	}

@@ -8,7 +8,6 @@
  * hit, missed or not shot at.
  ***********************************/
 
-#include "Game.h"
 #include "Move.h"
 
 enum status_t {UNKNOWN, HIT, MISS};

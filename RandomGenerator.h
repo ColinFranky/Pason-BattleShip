@@ -6,9 +6,11 @@
 #include <cstdlib>
 #include <ctime>
 
+//class MoveGenerator;
+//class GameBoard;
+
 class RandomGenerator:virtual public MoveGenerator
 {
-
 public:
 	RandomGenerator(GameBoard* board);
 	

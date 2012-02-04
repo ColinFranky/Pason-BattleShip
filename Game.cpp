@@ -128,7 +128,7 @@ char* Game::formatMoveMessage(Move* move)
 {
     char* message = new char[256];
     
-    char* x = new char[32];
+    /*char* x = new char[32];
     char* y = new char[32];
     char* z = new char[32];
     
@@ -141,7 +141,9 @@ char* Game::formatMoveMessage(Move* move)
     strcat(message, y);
     strcat(message, ",");
     strcat(message, z);
-    strcat(message, "\r\n");
+    strcat(message, "\r\n");*/
+    
+    sprintf(message, "%d,%d,%d\r\n", move->x, move->y, move->z);
     
     return message;
 }

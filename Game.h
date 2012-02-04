@@ -24,11 +24,6 @@ enum ships_t {FRI, SUB, DES, BAT, CAR};
 
 enum moveTypes_t {RAND, SEQ};
 
-//class GameBoard;
-//class MoveGenerator;
-//class RandomGenerator;
-//class SequentialGenerator;
-
 class Game
 {
 public:
