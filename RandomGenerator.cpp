@@ -9,14 +9,14 @@ RandomGenerator::RandomGenerator(GameBoard* board): MoveGenerator(board)
 
 }
 
-Move RandomGenerator::generateMove()
+struct Move* RandomGenerator::generateMove()
 {
 	while(1){	
 		currentMove.x = generator();
 		currentMove.y = generator();
 		currentMove.z = generator();
 		if(gameBoard.getStatus(currentMove) == UNKNOWN){
-			return currentMove;
+			return &currentMove;
 		}
 	}
 	
