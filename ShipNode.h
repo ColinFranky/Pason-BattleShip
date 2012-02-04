@@ -2,6 +2,7 @@
 #define SHIPNODE_H
 
 #include "Move.h"
+#include <cstddef>
 
 class ShipNode
 {

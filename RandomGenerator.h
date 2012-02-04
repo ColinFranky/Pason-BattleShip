@@ -8,9 +8,6 @@
 #include <stdio.h>
 #include <math.h>
 
-//class MoveGenerator;
-//class GameBoard;
-
 class RandomGenerator:virtual public MoveGenerator
 {
 public:

@@ -5,6 +5,13 @@ enum ships_t {FRI, SUB, DES, BAT, CAR};
 
 #define NUM_SHIPS 5
 
+#include "ShipLinkList.h"
+#include "ShipNode.h"
+#include <cstdlib>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+
 class Ship
 {
 public:
@@ -17,9 +24,22 @@ public:
     
     ships_t shipType;
     
-    void placeShip( Ship[] ships);
+    bool placeShip( Ship** ships);
     
-    ShipLinkedList points;
-}
+    ShipLinkList points;
+    
+    
+    void addPointsFrigate();
+    
+    void addPointsDestroyer();
+    
+    void addPointsSub();
+    
+    void addPointsCarrier();
+    
+    void addPointsBattle();
+    
+    char* toString();
+};
 
 #endif

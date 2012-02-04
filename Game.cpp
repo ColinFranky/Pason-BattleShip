@@ -107,15 +107,61 @@ bool Game::login()
 
 void Game::placeShips()
 {
-    char* message = (char*) "FF:9,0,0;9,0,1;9,0,2|SSK:9,0,3;9,0,4;9,0,5;9,0,6;9,0,7|DDH:0,1,0;1,0,0;1,1,0;1,2,0;2,1,0|BB:1,1,1;1,1,2;1,1,3;1,2,1;1,2,3;1,3,1;1,3,2;1,3,3|CVL:0,2,2;1,2,2;2,2,2;3,2,2;4,2,2;2,0,2;2,1,2;2,3,2;2,4,2;2,2,0;2,2,1;2,2,3;2,2,4\r\n";
+    //char* message = (char*) "FF:9,0,0;9,0,1;9,0,2|SSK:9,0,3;9,0,4;9,0,5;9,0,6;9,0,7|DDH:0,1,0;1,0,0;1,1,0;1,2,0;2,1,0|BB:1,1,1;1,1,2;1,1,3;1,2,1;1,2,3;1,3,1;1,3,2;1,3,3|CVL:0,2,2;1,2,2;2,2,2;3,2,2;4,2,2;2,0,2;2,1,2;2,3,2;2,4,2;2,2,0;2,2,1;2,2,3;2,2,4\r\n";
     
-    Ship* ships = new Ship[5];
+    Ship** ships = new Ship*[5];
     
-    ships[FRI] = new Ship( NULL, 1, 0, 0 );
-    ships[SUB] = new Ship( NULL, 0, 2, 0 );
-    ships[BAT] = new Ship( NULL, 1, 1, 1 );
-    ships[DES] = new Ship( NULL, 1, 1, 1 );
-    ships[CAR] = new Ship( NULL, 2, 2, 2 );
+    ships[FRI] = new Ship( NULL, 1, 0, 0, FRI );
+    ships[SUB] = new Ship( NULL, 0, 2, 0, SUB );
+    ships[BAT] = new Ship( NULL, 1, 1, 1, BAT );
+    ships[DES] = new Ship( NULL, 1, 1, 1, DES );
+    ships[CAR] = new Ship( NULL, 2, 2, 2, CAR );
+    
+    bool success = true;
+    
+    printf( "\nPlacing carrier.\n" );
+    if( ships[CAR]->placeShip(ships) )
+    {
+        printf( "\nPlacing battleship.\n" );
+        if( ships[BAT]->placeShip(ships) )
+        {
+            printf( "\nPlacing destroyer.\n" );
+            if( ships[DES]->placeShip(ships) )
+            {
+                printf( "\nPlacing sub.\n" );
+                if( ships[SUB]->placeShip(ships) )
+                {
+                    printf( "\nPlacing frigate.\n" );
+                    if( ships[FRI]->placeShip(ships) )
+                        printf( "\nFINISHED PLACING SHIPS\n" );
+                    else
+                        success = false;
+                }
+                else
+                    success = false;
+            }
+            else
+                success = false;
+        }
+        else
+            success = false;
+    }
+    else
+        success = false;
+    
+    char* message;
+    
+    if( !success )
+        message = (char*) "FF:9,0,0;9,0,1;9,0,2|SSK:9,0,3;9,0,4;9,0,5;9,0,6;9,0,7|DDH:0,1,0;1,0,0;1,1,0;1,2,0;2,1,0|BB:1,1,1;1,1,2;1,1,3;1,2,1;1,2,3;1,3,1;1,3,2;1,3,3|CVL:0,2,2;1,2,2;2,2,2;3,2,2;4,2,2;2,0,2;2,1,2;2,3,2;2,4,2;2,2,0;2,2,1;2,2,3;2,2,4\r\n";
+    else
+    {
+        message = new char[512];
+        
+        sprintf( message, "%s|%s|%s|%s|%s\r\n", ships[FRI]->toString(), ships[SUB]->toString(), ships[BAT]->toString(), ships[DES]->toString(), ships[CAR]->toString() );
+        
+        printf( "\nMESSAGE GENERATED: %s\n", message );
+        //exit(0);
+    }
     
     printf( "\nSENDING: %s\n", message );
     network->sendMessage( message );

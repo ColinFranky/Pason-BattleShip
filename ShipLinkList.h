@@ -3,15 +3,19 @@
 #define SHIPPOSITIONS_H
 
 #include "Move.h"
+#include "ShipNode.h"
+#include <cstddef>
 
-class ShipPositions
+class ShipLinkList
 {
 public:
+    ShipLinkList();
+    
 	ShipNode* head;
 	ShipNode* tail;
-	void addNode(Move* Location);
+	void add(Move* location);
 	
-	~ShipPosition;
+	~ShipLinkList();
 private:
 };
 

@@ -3,6 +3,9 @@
 
 class Move {
 public:
+    Move();
+    Move(int x, int y, int z);
+    
     int x;
     int y;
     int z;

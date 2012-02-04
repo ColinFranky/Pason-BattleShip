@@ -1,12 +1,12 @@
 #include "ShipLinkList.h"
 
-ShipPosition::ShipPosition()
+ShipLinkList::ShipLinkList()
 {
 	head = NULL;
 	tail = NULL;
 }
 
-ShipPosition::addNode(Move* location)
+void ShipLinkList::add(Move* location)
 {
 	if(head == NULL)
 	{
@@ -16,10 +16,11 @@ ShipPosition::addNode(Move* location)
 	{
 		ShipNode* temp = new ShipNode(location);
 		tail->next = temp;
+        tail = temp;
 	}
 }
 
-ShipPosition::~ShipPosition()
+ShipLinkList::~ShipLinkList()
 {
 	ShipNode* temp;
 	while(head != NULL)
