@@ -1,1 +1,11 @@
-This is the readme. :)
+To Compile:
+===========
+1. In the folder with all source files, run:
+	g++ *.cpp
+
+
+To Run:
+===========
+1. Execute ./a.out [server] [port] [user] [pass] [SEQ|RAND]
+
+where SEQ is a sequential search algorithm and RAND is a random search algorithm.
